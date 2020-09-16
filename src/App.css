@@ -1,0 +1,17 @@
+@import './reset.css';
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
+#app {
+    font-family: 'Work Sans', sans-serif;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+
+}
