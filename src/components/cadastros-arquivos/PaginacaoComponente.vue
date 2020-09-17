@@ -1,12 +1,15 @@
 <template>
   <div id="paginacaocomponente">
     <button @click="voltarPagina()">Ant</button>
-    <li id="btnExibirPaginacao" @click="exibirPaginacaoMultipla()">
-      {{ paginaAtual }}
-      <ul :class="paginacaoMultipla" v-for="(pagina) in paginasMultiplas" :key="pagina.value">
-        <li @click="irPaginaMultipa(pagina)">{{pagina}}</li>
+    <li class="btnPaginacaoMultipla" @click="exibirPaginacaoMultipla()">{{ paginaAtual }}</li>
+    <div :class="paginacaoMultipla">
+      <li class="avancarMultipla btnPaginacaoMultipla" @click="ultimasOpcoesMultipas()">-</li>
+      <ul v-for="(pagina) in opcoesPaginasVisiveis" :key="pagina.value">
+        <li class="btnPaginacaoMultipla" @click="irPaginaMultipa(pagina)">{{pagina}}</li>
       </ul>
-    </li>
+      <li class="avancarMultipla btnPaginacaoMultipla" @click="proximasOpcoesMultipas()">+</li>
+    </div>
+
     <li>de</li>
     <li>{{ totalPaginas() }}</li>
     <button @click="proximaPagina()">Prox</button>
@@ -24,8 +27,11 @@ export default {
       numeroPagina: 0,
       paginaAtual: 1,
       totalClientes: null,
-      paginacaoMultipla: { exibir: false },
-      paginasMultiplas: [1, 3, 6],
+      paginacaoMultipla: { esconder: true, posicaoPaginacao: false },
+      opcoesPaginasVisiveis: [],
+      opcoesPaginas: [1, 3, 6, 9, 12, 15],
+      paginaMultiplaAtual: 0,
+      opacoesDisponiveis: 3,
     };
   },
   methods: {
@@ -50,31 +56,55 @@ export default {
         this.emitirNumeroPagina();
       }
     },
+    emitirNumeroPagina() {
+      this.$emit("eventoMudarPagina", this.numeroPagina);
+    },
+    // Aqui começa as opões de Paginação Multiplas
     exibirPaginacaoMultipla() {
-      this.paginacaoMultipla.exibir = !this.paginacaoMultipla.exibir;
+      this.paginacaoMultipla.esconder = !this.paginacaoMultipla.esconder;
+      this.paginacaoMultipla.posicaoPaginacao = !this.paginacaoMultipla
+        .posicaoPaginacao;
     },
     irPaginaMultipa(pagina) {
       this.paginaAtual = pagina;
       this.numeroPagina = pagina - 1;
       this.emitirNumeroPagina();
     },
-    emitirNumeroPagina() {
-      this.$emit("eventoMudarPagina", this.numeroPagina);
+    ultimasOpcoesMultipas() {
+      if (this.paginaMultiplaAtual > 0) {
+        this.paginaMultiplaAtual -= 1;
+        this.mostrarOpcoesMultipas();
+      }
+    },
+    proximasOpcoesMultipas() {
+      if (
+        this.paginaMultiplaAtual <
+        Math.ceil(this.opcoesPaginas.length / this.opacoesDisponiveis)
+      ) {
+        this.paginaMultiplaAtual += 1;
+        this.mostrarOpcoesMultipas();
+      }
+    },
+    mostrarOpcoesMultipas() {
+      this.opcoesPaginasVisiveis = this.opcoesPaginas.slice(
+        this.paginaMultiplaAtual * this.opacoesDisponiveis,
+        this.paginaMultiplaAtual * this.opacoesDisponiveis +
+          this.opacoesDisponiveis
+      );
     },
     /*
-    atualizarArrayPaginasMultiplas() {
+    atualizarArrayopcoesPaginas() {
       let b = Math.ceil(this.totalClientes / this.tamanhoPagina);
       alert(b);
       for (let a = 1; a <= b; ) {
         a + 3;
-        this.paginasMultiplas.push(a);
+        this.opcoesPaginas.push(a);
       }
     }*/
   },
   mounted() {
     bus.$on("eventoTotalClientes", (tamanhoArray) => {
       this.totalClientes = tamanhoArray;
-      // this.atualizarArrayPaginasMultiplas();
     });
     bus.$on("paginaClientePesquisado", (data) => {
       this.paginaAtual = data;
@@ -83,6 +113,7 @@ export default {
     bus.$on("eventoTamanhoPagina", (tamanhoPagina) => {
       this.tamanhoPagina = tamanhoPagina;
     });
+    this.mostrarOpcoesMultipas();
   },
 };
 </script>
@@ -117,41 +148,33 @@ li {
   list-style-type: none;
   color: #333;
 }
-#btnExibirPaginacao {
+.btnPaginacaoMultipla {
   width: 25px;
-  height: 22px;
+  height: 20px;
   padding: 3px;
   align-content: center;
   text-align: center;
+  position: static;
   cursor: pointer;
   border-radius: 3px;
-  box-shadow: 0px 0px 2px 0.3px rgba(34, 34, 34, 0.5);
-}
-#paginacaocomponente li:first-child {
-  width: 20px;
-  padding: 6px;
-  text-align: center;
   background-color: #fdfdfd;
-  cursor: pointer;
-  border-radius: 3px;
   box-shadow: 0px 0px 2px 0.3px rgba(34, 34, 34, 0.5);
 }
 button:hover {
   cursor: pointer;
 }
-
-ul {
+ul li,
+.avancarMultipla {
+  margin-top: -51px;
+}
+.posicaoPaginacao {
+  display: flex;
+  position: fixed;
+  width: 170px;
+  justify-content: space-around;
+}
+.esconder {
   display: none;
-  position: relative;
-  border-radius: 7px;
-}
-
-ul li {
-  margin-top: -60px;
-  margin-left: -3px;
-}
-.exibir {
-  display: block;
 }
 @media screen and (min-width: 710px) and (max-width: 880px) {
   li {

@@ -73,7 +73,7 @@ tfoot {
   display: flex;
   width: 100%;
   justify-content: center;
-  margin-bottom: 7px;
+  margin: 25px 0 7px 0;
 }
 
 #erroEncontrarCliente {
