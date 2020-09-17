@@ -1,7 +1,7 @@
 <template>
   <div id="cadastrosComponente">
     <div id="container">
-      <h1>Cadastros</h1>
+      <h1>Clientes Cadastrados</h1>
       <div id="containerModal" v-show="mostrarModal">
         <modalcadastroscomponente
           @eventoFecharModal="fecharModal()"
@@ -10,7 +10,10 @@
         />
       </div>
       <div id="containerLinha">
-        <pesquisarcomponente @eventoFiltrarCliente="filtrarCliente($event)" />
+        <pesquisarcomponente
+          v-on:keyup.enter="filtrarCliente($event)"
+          @eventoFiltrarCliente="filtrarCliente($event)"
+        />
 
         <novocadastrocomponente @eventoAbrirModal="abrirModal()" />
       </div>
@@ -21,7 +24,7 @@
             <p>Idade</p>
             <p>Sexo</p>
             <p>Status</p>
-            <p>avançado</p>
+            <p>Ações</p>
           </tr>
         </thead>
         <tbody>
@@ -31,12 +34,14 @@
               <p>{{ cliente.idade }}</p>
               <p>{{ cliente.sexo }}</p>
               <p>{{ cliente.status }}</p>
-              <div id="btnOpcoesAvancadas">
+              <div id="btnAcoes">
                 <button @click="exibirClienteModal(cliente)">
                   <img src="../assets/lapisicone.svg" />
+                  <p>Editar</p>
                 </button>
                 <button @click="excluirCliente(cliente)">
                   <img src="../assets/lixeiraicone.svg" />
+                  <p>Excluir</p>
                 </button>
               </div>
             </tr>

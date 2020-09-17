@@ -104,20 +104,21 @@ export default {
 <style scoped>
 #container {
   display: flex;
-  width: 650px;
-  margin: 7vw auto;
-  padding: 3%;
+  width: 550px;
+  margin: 9vw auto;
+  padding: 2%;
   flex-flow: column;
   box-sizing: border-box;
   border-radius: 10px;
   color: #333333;
   background-color: #fdfdfd;
   box-shadow: 0px 0px 5px 0.3px rgba(34, 34, 34, 0.415);
+  transition: all 0.4s ease;
 }
 #container span {
   color: rgb(238, 90, 90);
-  font-size: 1.25rem;
-  margin: 15px auto 0 auto;
+  font-size: 1.2rem;
+  margin: 10px auto 0 auto;
   text-align: center;
 }
 #backgroundModal {
@@ -133,11 +134,11 @@ export default {
 input,
 select,
 option {
-  width: 100%;
-  height: 55px;
-  margin-bottom: 25px;
+  width: 95%;
+  height: 50px;
+  margin: 0 auto 25px auto;
   padding: 0 20px;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   box-sizing: border-box;
   border: none;
   border-radius: 10px;
@@ -146,17 +147,18 @@ option {
 
 #btnAcoesModal {
   display: flex;
-  justify-content: space-between;
 }
 
 button {
-  width: 48%;
-  height: 55px;
-  font-size: 1.5rem;
+  width: 47%;
+  height: 50px;
+  margin: 0 auto;
+  font-size: 1.2rem;
   border: none;
   border-radius: 10px;
   background-color: rgb(69, 245, 190);
   box-shadow: 0px 0px 5px 0.3px rgba(34, 34, 34, 0.3);
+  transition: all 0.4s ease;
 }
 
 button:hover {

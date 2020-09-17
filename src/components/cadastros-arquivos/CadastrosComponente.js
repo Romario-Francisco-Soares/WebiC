@@ -64,29 +64,75 @@ export default {
           idade: 23,
           sexo: "feminino",
           status: "ativo",
-        }, {
+        },
+        {
           id: 8,
           nome: "cliente8",
           idade: 23,
           sexo: "feminino",
           status: "ativo",
-        }, {
+        },
+        {
           id: 9,
           nome: "cliente9",
           idade: 23,
           sexo: "feminino",
           status: "ativo",
-        }, {
+        },
+        {
           id: 10,
           nome: "cliente10",
           idade: 22,
           sexo: "masculino",
           status: "ativo",
-        }, {
+        },
+        {
           id: 11,
           nome: "cliente10",
           idade: 22,
           sexo: "masculino",
+          status: "ativo",
+        }, {
+          id: 12,
+          nome: "cliente8",
+          idade: 23,
+          sexo: "feminino",
+          status: "ativo",
+        }, {
+          id: 13,
+          nome: "cliente9",
+          idade: 23,
+          sexo: "feminino",
+          status: "ativo",
+        }, {
+          id: 14,
+          nome: "cliente10",
+          idade: 22,
+          sexo: "masculino",
+          status: "ativo",
+        }, {
+          id: 15,
+          nome: "cliente10",
+          idade: 22,
+          sexo: "masculino",
+          status: "ativo",
+        }, {
+          id: 16,
+          nome: "cliente5",
+          idade: 21,
+          sexo: "feminino",
+          status: "ativo",
+        }, {
+          id: 17,
+          nome: "cliente6",
+          idade: 26,
+          sexo: "masculino",
+          status: "ativo",
+        }, {
+          id: 18,
+          nome: "cliente7",
+          idade: 23,
+          sexo: "feminino",
           status: "ativo",
         },
       ],
@@ -94,7 +140,7 @@ export default {
       mostrarModal: false,
       clientesVisiveis: [],
       paginaAtual: 0,
-      tamanhoPagina: 4,
+      tamanhoPagina: 5,
     };
   },
   methods: {
@@ -154,5 +200,6 @@ export default {
   mounted() {
     this.mostrarTodosClientes();
     bus.$emit('eventoTotalClientes', this.clientes.length)
+    bus.$emit('eventoTamanhoPagina', this.tamanhoPagina)
   }
 };

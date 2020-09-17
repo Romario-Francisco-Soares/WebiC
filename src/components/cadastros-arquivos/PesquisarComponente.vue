@@ -26,6 +26,7 @@ export default {
 #pesquisarcomponente {
   display: flex;
   width: 60%;
+  height: 50px;
   flex-flow: row nowrap;
   justify-content: space-between;
   box-shadow: 0px 0px 5px 0.3px rgba(34, 34, 34, 0.3);
@@ -33,9 +34,8 @@ export default {
 }
 
 #pesquisarcomponente input {
-  height: 55px;
   width: 80%;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding: 0 30px;
   color: #333;
   border: none;
@@ -59,10 +59,11 @@ export default {
 }
 
 #pesquisarcomponente button {
-  width: 15%;
+  width: 20%;
   border: none;
   border-radius: 0px 10px 10px 0px;
   background-color: rgb(69, 245, 190);
+  transition: all 0.4s ease;
 }
 
 #pesquisarcomponente button:hover {
@@ -71,7 +72,21 @@ export default {
 }
 
 #pesquisarcomponente button img {
-  width: 25%;
+  width: 25px;
   margin-top: 5px;
+}
+@media screen and (min-width: 710px) and (max-width: 880px) {
+  #pesquisarcomponente {
+    height: 45px;
+  }
+  #pesquisarcomponente button img {
+    width: 20px;
+  }
+  #pesquisarcomponente button {
+    width: 25%;
+  }
+  #pesquisarcomponente input {
+    font-size: 1rem;
+  }
 }
 </style>
