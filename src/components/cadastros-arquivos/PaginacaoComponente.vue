@@ -114,6 +114,11 @@ export default {
       this.tamanhoPagina = tamanhoPagina;
     });
     this.mostrarOpcoesMultipas();
+    bus.$on("eventoPesquisaSemValor", (data) => {
+      this.paginaAtual = data;
+      this.numeroPagina = 0;
+      this.emitirNumeroPagina();
+    });
   },
 };
 </script>

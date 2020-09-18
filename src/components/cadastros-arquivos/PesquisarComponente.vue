@@ -1,13 +1,14 @@
 <template>
   <div id="pesquisarcomponente">
     <input type="text" v-model="valorPesquisado" placeholder="Filtrar Cliente" />
-    <button @click="pesquisar">
+    <button @click="verificarValorPesquisado(valorPesquisado)">
       <img src="../../assets/procuraricone.svg" />
     </button>
   </div>
 </template>
 
 <script>
+import { bus } from "../../main";
 export default {
   name: "pesquisarcomponente",
   data() {
@@ -16,7 +17,14 @@ export default {
     };
   },
   methods: {
-    pesquisar() {
+    verificarValorPesquisado(data) {
+      if (data == "" || data == " " || data == null) {
+        bus.$emit("eventoPesquisaSemValor", 1);
+      } else {
+        this.pesquisarValor();
+      }
+    },
+    pesquisarValor() {
       this.$emit("eventoFiltrarCliente", this.valorPesquisado);
     },
   },
