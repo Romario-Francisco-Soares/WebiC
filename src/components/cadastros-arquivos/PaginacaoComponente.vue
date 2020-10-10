@@ -29,7 +29,7 @@ export default {
       totalClientes: null,
       paginacaoMultipla: { esconder: true, posicaoPaginacao: false },
       opcoesPaginasVisiveis: [],
-      opcoesPaginas: [1, 3, 6, 9, 12, 15],
+      opcoesPaginas: [1],
       paginaMultiplaAtual: 0,
       opacoesDisponiveis: 3,
     };
@@ -59,6 +59,7 @@ export default {
     emitirNumeroPagina() {
       this.$emit("eventoMudarPagina", this.numeroPagina);
     },
+
     // Aqui começa as opões de Paginação Multiplas
     exibirPaginacaoMultipla() {
       this.paginacaoMultipla.esconder = !this.paginacaoMultipla.esconder;
@@ -90,17 +91,21 @@ export default {
         this.paginaMultiplaAtual * this.opacoesDisponiveis,
         this.paginaMultiplaAtual * this.opacoesDisponiveis +
           this.opacoesDisponiveis
-      );
+      );   
     },
-    /*
-    atualizarArrayopcoesPaginas() {
-      let b = Math.ceil(this.totalClientes / this.tamanhoPagina);
-      alert(b);
-      for (let a = 1; a <= b; ) {
-        a + 3;
-        this.opcoesPaginas.push(a);
+    atualizarArrayOpcoesPaginas() {
+      let b = 4;
+      let c = 0;
+      if (this.opcoesPaginas.length < b / 3) {
+        for (let a = 1; a <= b / 3; a++) {
+          c += 3;
+          this.opcoesPaginas.push(c);
+        }
       }
-    }*/
+    },
+  },
+  created() {
+    this.atualizarArrayOpcoesPaginas();
   },
   mounted() {
     bus.$on("eventoTotalClientes", (tamanhoArray) => {
@@ -170,12 +175,11 @@ button:hover {
 }
 ul li,
 .avancarMultipla {
-  margin-top: -51px;
+  margin: -51px 0.5px 0 3px;
 }
 .posicaoPaginacao {
   display: flex;
   position: fixed;
-  width: 170px;
   justify-content: space-around;
 }
 .esconder {
