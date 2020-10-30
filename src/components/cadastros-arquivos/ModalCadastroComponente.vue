@@ -13,14 +13,18 @@
       </select>
       <div id="btnAcoesModal">
         <button @click="fecharModal">Cancelar</button>
-        <button v-show="!editar" @click="verificarPreenchimentoCampos">Cadastrar</button>
+        <button v-show="!editar" @click="verificarPreenchimentoCampos">
+          Cadastrar
+        </button>
         <button v-show="editar" @click="editarCliente">Editar</button>
       </div>
-      <span v-show="preenchimentoIncorreto">Por favor, verifique os campos</span>
+      <span v-show="preenchimentoIncorreto"
+        >Por favor, verifique os campos</span
+      >
     </div>
     <div id="backgroundModal" @click="fecharModal" />
   </div>
-</template> 
+</template>
 
 <script>
 import { bus } from "../../main";
@@ -29,7 +33,7 @@ export default {
   name: "modalcadastrocomponente",
   data() {
     return {
-      cliente: {
+      clienteEdicao: {
         id: null,
         nome: null,
         idade: null,
@@ -37,17 +41,10 @@ export default {
         status: "ativo",
       },
       editar: false,
-      clienteEdicao: "",
       preenchimentoIncorreto: false,
     };
   },
   methods: {
-    inicializarArrays() {
-      this.clienteEdicao = this.cliente;
-    },
-    atualizarArrayCliente() {
-      this.cliente = this.clienteEdicao;
-    },
     fecharModal() {
       this.$emit("eventoFecharModal");
       this.limpaCamposCliente();
@@ -63,27 +60,21 @@ export default {
         this.preenchimentoIncorreto = true;
       } else {
         this.preenchimentoIncorreto = false;
-        this.atualizarArrayCliente();
         this.adicionarCliente();
       }
     },
     adicionarCliente() {
-      this.$emit("eventoAdicionarCliente", this.cliente);
+      this.$emit("eventoAdicionarCliente", this.clienteEdicao);
       this.limpaCamposCliente();
     },
     editarCliente() {
-      this.atualizarArrayCliente();
-      this.$emit("eventoEditarCliente", this.cliente);
+      this.$emit("eventoEditarCliente", this.clienteEdicao);
       this.limpaCamposCliente();
       this.editar = false;
     },
     limpaCamposCliente() {
       this.clienteEdicao = {
         id: null,
-        nome: null,
-        idade: null,
-        sexo: null,
-        status: "ativo",
       };
     },
   },
@@ -92,12 +83,9 @@ export default {
       this.clienteEdicao.id = novoIdCliente;
     });
     bus.$on("eventoExibirCliente", (cliente) => {
-      this.clienteEdicao = cliente;
+      this.clienteEdicao = Object.assign({}, cliente);
       this.editar = true;
     });
-  },
-  mounted() {
-    this.inicializarArrays();
   },
 };
 </script>
