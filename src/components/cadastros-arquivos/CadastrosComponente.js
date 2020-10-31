@@ -18,119 +18,119 @@ export default {
     return {
       clientes: [{
           id: 0,
-          nome: "cliente1",
+          nome: "Kaleb",
           idade: 41,
           sexo: "masculino",
           status: "ativo",
         },
         {
           id: 1,
-          nome: "cliente2",
+          nome: "augusto",
           idade: 22,
           sexo: "masculino",
           status: "ativo",
         },
         {
           id: 3,
-          nome: "cliente3",
+          nome: "Ricardo",
           idade: 25,
           sexo: "feminino",
           status: "ativo",
         },
         {
           id: 4,
-          nome: "cliente4",
+          nome: "Fernanda",
           idade: 19,
           sexo: "masculino",
           status: "ativo",
         },
         {
           id: 6,
-          nome: "cliente5",
+          nome: "joana",
           idade: 21,
           sexo: "feminino",
           status: "ativo",
         },
         {
           id: 5,
-          nome: "cliente6",
+          nome: "Diego",
           idade: 26,
           sexo: "masculino",
           status: "ativo",
         },
         {
           id: 7,
-          nome: "cliente7",
+          nome: "Alexandra",
           idade: 23,
           sexo: "feminino",
           status: "ativo",
         },
         {
           id: 8,
-          nome: "cliente8",
+          nome: "Tamires",
           idade: 23,
           sexo: "feminino",
           status: "ativo",
         },
         {
           id: 9,
-          nome: "cliente9",
+          nome: "Carol",
           idade: 23,
           sexo: "feminino",
           status: "ativo",
         },
         {
           id: 10,
-          nome: "cliente10",
+          nome: "Francilis",
           idade: 22,
           sexo: "masculino",
           status: "ativo",
         },
         {
           id: 11,
-          nome: "cliente10",
+          nome: "Brian",
           idade: 22,
           sexo: "masculino",
           status: "ativo",
         }, {
           id: 12,
-          nome: "cliente8",
+          nome: "Amanda",
           idade: 23,
           sexo: "feminino",
           status: "ativo",
         }, {
           id: 13,
-          nome: "cliente9",
+          nome: "Daiane",
           idade: 23,
           sexo: "feminino",
           status: "ativo",
         }, {
           id: 14,
-          nome: "cliente10",
+          nome: "Pedro",
           idade: 22,
           sexo: "masculino",
           status: "ativo",
         }, {
           id: 15,
-          nome: "cliente10",
+          nome: "Batista",
           idade: 22,
           sexo: "masculino",
           status: "ativo",
         }, {
           id: 16,
-          nome: "cliente5",
+          nome: "Carla8",
           idade: 21,
           sexo: "feminino",
           status: "ativo",
         }, {
           id: 17,
-          nome: "cliente6",
+          nome: "Thaiane2",
           idade: 26,
           sexo: "masculino",
           status: "ativo",
         }, {
           id: 18,
-          nome: "cliente7",
+          nome: "Karoline10",
           idade: 23,
           sexo: "feminino",
           status: "ativo",
@@ -156,14 +156,13 @@ export default {
       this.mostrarTodosClientes();
     },
     editarCliente(data) {
-      this.clientes = this.clientes.filter((cliente) => cliente != data);
       this.adicionarCliente(data);
       this.fecharModal();
-      this.mudarPagina(2);
     },
     exibirClienteModal(cliente) {
-      this.abrirModal();
       bus.$emit("eventoExibirCliente", cliente);
+      this.excluirCliente(cliente);
+      this.abrirModal();
     },
     mudarPagina(numeroPagina) {
       this.paginaAtual = numeroPagina;
@@ -199,7 +198,7 @@ export default {
   },
   mounted() {
     this.mostrarTodosClientes();
-    bus.$emit('eventoTotalClientes', this.clientes.length)
-    bus.$emit('eventoTamanhoPagina', this.tamanhoPagina)
+    bus.$emit('eventoTotalClientes', this.clientes.length);
+    bus.$emit('eventoTamanhoPagina', this.tamanhoPagina);
   }
 };
